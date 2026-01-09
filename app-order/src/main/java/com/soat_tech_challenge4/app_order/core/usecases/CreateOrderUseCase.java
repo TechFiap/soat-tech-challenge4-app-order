@@ -9,7 +9,6 @@ import com.soat_tech_challenge4.app_order.core.gateways.OrderGateway;
 import com.soat_tech_challenge4.app_order.core.gateways.ProductGateway;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CreateOrderUseCase {
 
@@ -33,12 +32,9 @@ public class CreateOrderUseCase {
 
                     return orderItem;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         Order newOrder = new Order(items);
-
-        Order savedOrder = orderGateway.save(newOrder);
-
-        return savedOrder;
+        return orderGateway.save(newOrder);
     }
 }

@@ -9,15 +9,24 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Getter
 public class Order {
     private Long id;
-    private LocalDateTime orderDate;
+    private final LocalDateTime orderDate;
     private OrderStatusEnum orderStatus;
-    private List<OrderItem> items;
-    private BigDecimal total;
+    private final List<OrderItem> items;
+    private final BigDecimal total;
     private Long paymentId;
+
+    public Order(Long id, LocalDateTime orderDate, OrderStatusEnum orderStatus, List<OrderItem> items, BigDecimal total, Long paymentId) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.items = items;
+        this.total = total;
+        this.paymentId = paymentId;
+    }
 
     public Order(List<OrderItem> items) {
         this.items = items;

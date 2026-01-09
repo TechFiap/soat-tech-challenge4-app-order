@@ -6,11 +6,14 @@ import com.soat_tech_challenge4.app_order.core.dtos.OrderItemDto;
 import com.soat_tech_challenge4.app_order.core.dtos.OrderResponseDto;
 import com.soat_tech_challenge4.app_order.core.dtos.ProductDto;
 import com.soat_tech_challenge4.app_order.core.entities.Category;
+import com.soat_tech_challenge4.app_order.core.entities.Order;
+import com.soat_tech_challenge4.app_order.core.entities.OrderItem;
 import com.soat_tech_challenge4.app_order.core.entities.OrderStatusEnum;
-import com.soat_tech_challenge4.app_order.core.gateways.OrderGateway;
 import com.soat_tech_challenge4.app_order.core.interfaces.DataSource;
+import com.soat_tech_challenge4.app_order.core.usecases.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,23 +21,88 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
-public class OrderControllerTest {
+class OrderControllerTest {
 
-    private OrderController orderController;
     private DataSource dataSource;
-    private OrderGateway orderGateway;
+    private OrderController controller;
 
     @BeforeEach
     void setUp() {
         dataSource = mock(DataSource.class);
-        orderGateway = mock(OrderGateway.class);
-        orderController = new OrderController(dataSource);
+        controller = new OrderController(dataSource);
     }
 
+    @Test
+    void getAllOrders_shouldReturnOrderDtoList() {
+        List<Order> orders =
+                List.of(new Order(List.of(new OrderItem(1L, 2, BigDecimal.TEN))));
+
+        try (MockedConstruction<GetOrdersUseCase> mocked =
+                     mockConstruction(GetOrdersUseCase.class,
+                             (mock, context) -> when(mock.execute()).thenReturn(orders))) {
+
+            List<OrderDto> result = controller.getAllOrders();
+
+            assertNotNull(result);
+            assertEquals(1, result.size());
+            //assertEquals(1, result.get(0).listOrderItemDto().size());
+        }
+    }
+
+    @Test
+    void checkout_shouldReturnOrderResponseDto() {
+        OrderItemDto itemDto = new OrderItemDto(1L, 2L, 5, BigDecimal.TEN);
+        OrderRequestDto request = new OrderRequestDto(List.of(itemDto));
+
+        Order order =
+                new Order(List.of(new OrderItem(2L, 5, BigDecimal.TEN)));
+
+        try (MockedConstruction<CheckoutUseCase> mocked =
+                     mockConstruction(CheckoutUseCase.class,
+                             (mock, context) ->
+                                     when(mock.execute(request)).thenReturn(order))) {
+
+            OrderResponseDto response = controller.checkout(request);
+
+            assertNotNull(response);
+            assertEquals(1, response.listOrderItemDto().size());
+        }
+    }
+
+    @Test
+    void findById_shouldReturnOrderDto() {
+        Order order =
+                new Order(List.of(new OrderItem(1L, 1, BigDecimal.TEN)));
+
+        try (MockedConstruction<FindOrderByIdUseCase> mocked =
+                     mockConstruction(FindOrderByIdUseCase.class,
+                             (mock, context) ->
+                                     when(mock.execute(5L)).thenReturn(order))) {
+
+            OrderDto result = controller.findById(5L);
+
+            assertNotNull(result);
+            assertEquals(1, result.listOrderItemDto().size());
+        }
+    }
+
+    @Test
+    void getAllOrdersSorted_shouldReturnSortedOrderDtoList() {
+        List<Order> orders =
+                List.of(new Order(List.of(new OrderItem(1L, 2, BigDecimal.TEN))));
+
+        try (MockedConstruction<GetAllOrdersSortedUseCase> mocked =
+                     mockConstruction(GetAllOrdersSortedUseCase.class,
+                             (mock, context) -> when(mock.execute()).thenReturn(orders))) {
+
+            List<OrderDto> result = controller.getAllOrdersSorted();
+
+            assertNotNull(result);
+            assertEquals(1, result.size());
+        }
+    }
 
     @Test
     void checkout_success() {
@@ -47,7 +115,7 @@ public class OrderControllerTest {
         when(dataSource.saveOrder(any())).thenReturn(orderDtomock);
         when(dataSource.findById(any())).thenReturn(productDtoMock);
 
-        OrderResponseDto result = orderController.checkout(orderRequestDtoMock);
+        OrderResponseDto result = controller.checkout(orderRequestDtoMock);
 
         assertNotNull(result);
         assertEquals(100L, orderDtomock.id());
@@ -67,7 +135,7 @@ public class OrderControllerTest {
         when(dataSource.findOrderById(any())).thenReturn(orderDtomock);
         when(dataSource.saveOrder(any())).thenReturn(orderDtomockUpdated);
 
-        OrderDto result = orderController.updateStatus(100L, "RECEBIDO");
+        OrderDto result = controller.updateStatus(100L, "RECEBIDO");
 
         assertNotNull(result);
         assertEquals("RECEBIDO", result.orderStatus().name());
@@ -80,7 +148,7 @@ public class OrderControllerTest {
     void getAllOrdersSorted_success() {
         when(dataSource.getAllOrders()).thenReturn(List.of(createMockOrderDto()));
 
-        List<OrderDto> result = orderController.getAllOrdersSorted();
+        List<OrderDto> result = controller.getAllOrdersSorted();
 
         assertNotNull(result);
         assertEquals(1, result.size());

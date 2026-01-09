@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastfood-api-deployment
-  namespace: fastfood-app
+  name: order-deployment
+  namespace: order-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fastfood-api
+      app: order
   template:
     metadata:
       labels:
-        app: fastfood-api
+        app: order
     spec:
-      serviceAccountName: fastfood-api-sa # IMPORTANTE: Service Account para autenticação com AWS
+      serviceAccountName: order-sa # IMPORTANTE: Service Account para autenticação com AWS
       containers:
-        - name: fastfood-api
-          image: 239409137076.dkr.ecr.us-east-1.amazonaws.com/develop:TAG
+        - name: order-api
+          image: 239409137076.dkr.ecr.us-east-1.amazonaws.com/order:TAG
           #image: hmouraf/fastfood:tech_fase2
           #image: hmouraf/soat-tech-challenge-fast-food-app:feature-build
           ports:
@@ -30,17 +30,17 @@ spec:
               cpu: "512m"      # Máximo de CPU que o container pode usar (0.5 cores)
           envFrom:
             - configMapRef:
-                name: fastfood-api-configmap
+                name: order-configmap
           env:
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: fastfood-api-secrets # <- Nome do segredo que o External Secrets irá criar
+                  name: order-secrets # <- Nome do segredo que o External Secrets irá criar
                   key: DATASOURCE_USERNAME
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: fastfood-api-secrets # <- Nome do segredo que o External Secrets irá criar
+                  name: order-secrets # <- Nome do segredo que o External Secrets irá criar
                   key: DATASOURCE_PASSWORD
           livenessProbe:
             httpGet:
