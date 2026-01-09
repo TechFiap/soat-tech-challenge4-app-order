@@ -16,7 +16,7 @@ spec:
       serviceAccountName: order-sa # IMPORTANTE: Service Account para autenticação com AWS
       containers:
         - name: order-api
-          image: 239409137076.dkr.ecr.us-east-1.amazonaws.com/order:12975c12d517bc327fc7e76d99c4a548b678843a
+          image: 239409137076.dkr.ecr.us-east-1.amazonaws.com/order:TAG
           #image: hmouraf/fastfood:tech_fase2
           #image: hmouraf/soat-tech-challenge-fast-food-app:feature-build
           ports:
