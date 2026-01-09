@@ -13,10 +13,10 @@ import java.util.List;
 @Getter
 public class Order {
     private Long id;
-    private LocalDateTime orderDate;
+    private final LocalDateTime orderDate;
     private OrderStatusEnum orderStatus;
-    private List<OrderItem> items;
-    private BigDecimal total;
+    private final List<OrderItem> items;
+    private final BigDecimal total;
     private Long paymentId;
 
     public Order(List<OrderItem> items) {

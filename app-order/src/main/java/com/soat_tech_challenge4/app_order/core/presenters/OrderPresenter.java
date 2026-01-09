@@ -11,7 +11,7 @@ import java.util.List;
 public class OrderPresenter {
 
     public static List<OrderDto> toDto(List<Order> listOrder) {
-        List<OrderDto> orderDtoList = listOrder.stream()
+        return listOrder.stream()
                 .map((order -> new OrderDto(
                         order.getId(),
                         order.getOrderDate(),
@@ -20,19 +20,17 @@ public class OrderPresenter {
                         order.getTotal(),
                         order.getPaymentId())))
                 .toList();
-        return orderDtoList;
     }
 
     public static OrderDto toDto(Order order) {
         List<OrderItemDto> orderItemDtoList = order.getItems().stream()
-                .map(orderItem -> {
-                    return new OrderItemDto(
+                .map(orderItem ->
+                     new OrderItemDto(
                             orderItem.getId(),
                             orderItem.getProductId(),
                             orderItem.getQuantity(),
                             orderItem.getPrice()
-                    );
-                })
+                     ))
                 .toList();
         return new OrderDto(
                 order.getId(),
@@ -54,7 +52,7 @@ public class OrderPresenter {
     }
 
     public static List<OrderDto> toDtoWithOrderItemDtoList(List<Order> listOrder) {
-        List<OrderDto> orderDtoList = listOrder.stream()
+        return listOrder.stream()
                 .map(order -> {
                     List<OrderItemDto> items = order.getItems().stream()
                             .map(orderItem -> new OrderItemDto(
@@ -75,8 +73,6 @@ public class OrderPresenter {
                     );
                 })
                 .toList();
-
-        return orderDtoList;
     }
 
     public static OrderResponseDto toDtoWithoutOrderItemId(Order order) {

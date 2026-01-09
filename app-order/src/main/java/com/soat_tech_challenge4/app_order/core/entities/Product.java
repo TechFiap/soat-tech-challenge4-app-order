@@ -36,7 +36,7 @@ public class Product {
     }
 
     public Product(Long id, String name, String description, BigDecimal price, Category category, Boolean avaliable){
-        Validate(name, description, price, category);
+        validate(name, description, price, category);
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,7 +46,7 @@ public class Product {
     }
 
     public Product(String name, String description, BigDecimal price, Category category) {
-        Validate(name, description, price, category);
+        validate(name, description, price, category);
         this.name = name;
         this.description = description;
         this.price = price;
@@ -54,7 +54,7 @@ public class Product {
         this.avaliable = true;
     }
 
-    private void Validate(String name, String description, BigDecimal price, Category category) throws IllegalArgumentException{
+    private void validate(String name, String description, BigDecimal price, Category category) throws IllegalArgumentException{
         if (name == null || name.isEmpty()){
             throw new IllegalArgumentException("Product name cannot be null or empty");
         }

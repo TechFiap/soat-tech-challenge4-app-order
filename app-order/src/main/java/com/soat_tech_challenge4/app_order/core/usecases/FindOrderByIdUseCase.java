@@ -15,9 +15,6 @@ public class FindOrderByIdUseCase {
         if (orderId == null) {
             throw new IllegalArgumentException("Order ID cannot be null");
         }
-
-        Order order = orderGateway.findById(orderId);
-
-        return order;
+        return orderGateway.findById(orderId);
     }
 }
