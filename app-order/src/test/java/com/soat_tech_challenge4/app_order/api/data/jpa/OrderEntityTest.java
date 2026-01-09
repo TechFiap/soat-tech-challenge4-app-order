@@ -18,8 +18,8 @@ class OrderEntityTest {
         // Arrange
         LocalDateTime now = LocalDateTime.now();
 
-        OrderItem item1 = new OrderItem(1L, 10L, 2, BigDecimal.valueOf(5));
-        OrderItem item2 = new OrderItem(2L, 20L, 1, BigDecimal.valueOf(10));
+        OrderItem item1 = new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.valueOf(5));
+        OrderItem item2 = new OrderItem(2L, "2253b564-e668-41ad-b792-b49df48392bb", 1, BigDecimal.valueOf(10));
 
         Order order = new Order(
                 99L,

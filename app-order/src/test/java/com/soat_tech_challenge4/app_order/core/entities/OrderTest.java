@@ -13,8 +13,8 @@ class OrderTest {
 
     @Test
     void constructorWithItems_shouldInitializeFieldsAndCalculateTotal() {
-        OrderItem item1 = new OrderItem(1L, 10L, 2, BigDecimal.valueOf(5));
-        OrderItem item2 = new OrderItem(2L, 20L, 1, BigDecimal.valueOf(10));
+        OrderItem item1 = new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.valueOf(5));
+        OrderItem item2 = new OrderItem(2L, "2253b564-e668-41ad-b792-b49df48392bb", 1, BigDecimal.valueOf(10));
 
         Order order = new Order(List.of(item1, item2));
 
@@ -28,7 +28,7 @@ class OrderTest {
     void allArgsConstructor_shouldAssignAllFieldsCorrectly() {
         LocalDateTime now = LocalDateTime.now();
 
-        OrderItem item = new OrderItem(1L, 10L, 1, BigDecimal.valueOf(15));
+        OrderItem item = new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.valueOf(15));
 
         Order order = new Order(
                 5L,
@@ -49,7 +49,7 @@ class OrderTest {
     @Test
     void setId_shouldUpdateOrderId() {
         Order order = new Order(List.of(
-                new OrderItem(1L, 1L, 1, BigDecimal.TEN)
+                new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)
         ));
 
         order.setId(100L);
@@ -60,7 +60,7 @@ class OrderTest {
     @Test
     void setPaymentId_shouldUpdatePaymentId() {
         Order order = new Order(List.of(
-                new OrderItem(1L, 1L, 1, BigDecimal.TEN)
+                new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)
         ));
 
         order.setPaymentId(55L);
@@ -70,8 +70,8 @@ class OrderTest {
 
     @Test
     void calculateTotal_shouldReturnSumOfItemSubtotals() {
-        OrderItem item1 = new OrderItem(1L, 1L, 2, BigDecimal.valueOf(10));
-        OrderItem item2 = new OrderItem(2L, 2L, 3, BigDecimal.valueOf(5));
+        OrderItem item1 = new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.valueOf(10));
+        OrderItem item2 = new OrderItem(2L, "2253b564-e668-41ad-b792-b49df48392bb", 3, BigDecimal.valueOf(5));
 
         Order order = new Order(List.of(item1, item2));
 
@@ -83,7 +83,7 @@ class OrderTest {
     @Test
     void updateStatus_shouldUpdateStatusWhenValidAndDifferent() {
         Order order = new Order(List.of(
-                new OrderItem(1L, 1L, 1, BigDecimal.TEN)
+                new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)
         ));
 
         order.updateStatus("RECEBIDO");
@@ -94,7 +94,7 @@ class OrderTest {
     @Test
     void updateStatus_shouldThrowIllegalArgumentException_whenStatusIsInvalid() {
         Order order = new Order(List.of(
-                new OrderItem(1L, 1L, 1, BigDecimal.TEN)
+                new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)
         ));
 
         IllegalArgumentException exception = assertThrows(
@@ -108,7 +108,7 @@ class OrderTest {
     @Test
     void updateStatus_shouldThrowErrorException_whenStatusIsTheSame() {
         Order order = new Order(List.of(
-                new OrderItem(1L, 1L, 1, BigDecimal.TEN)
+                new OrderItem(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)
         ));
 
         ErrorException exception = assertThrows(

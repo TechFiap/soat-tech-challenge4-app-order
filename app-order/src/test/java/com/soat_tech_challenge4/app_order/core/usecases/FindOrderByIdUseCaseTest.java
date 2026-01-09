@@ -33,7 +33,7 @@ class FindOrderByIdUseCaseTest {
     void shouldReturnOrderWhenFound() {
         Long orderId = 1L;
         List<OrderItem> items = List.of(
-                new OrderItem(1L, 1L, 2, new BigDecimal("10.00"))
+                new OrderItem(1L, "2ad74ecd-ba58-4d60-999f-010e13e32014", 2, new BigDecimal("10.00"))
         );
         Order order = new Order(items);
         order.setId(orderId);

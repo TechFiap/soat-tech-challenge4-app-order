@@ -30,7 +30,7 @@ class OrderGatewayTest {
     @Test
     void getAllOrders_shouldMapOrderDtoToOrderEntity() {
         OrderItemDto itemDto =
-                new OrderItemDto(1L, 5L, 2, BigDecimal.valueOf(15.0));
+                new OrderItemDto(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.valueOf(15.0));
 
         OrderDto orderDto =
                 new OrderDto(
@@ -57,7 +57,7 @@ class OrderGatewayTest {
         assertEquals(1, order.getItems().size());
         OrderItem item = order.getItems().get(0);
         assertEquals(1L, item.getId());
-        assertEquals(5L, item.getProductId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", item.getProductId());
         assertEquals(2, item.getQuantity());
         assertEquals(BigDecimal.valueOf(15.0), item.getPrice());
     }
@@ -66,7 +66,7 @@ class OrderGatewayTest {
     void save_shouldMapOrderToDtoCallDataSourceAndUpdateOrderId() {
         // Arrange
         OrderItem item = new OrderItem(
-                1L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 2,
                 BigDecimal.valueOf(25.0)
         );
@@ -86,7 +86,7 @@ class OrderGatewayTest {
                 order.getOrderStatus(),
                 List.of(new OrderItemDto(
                         99L,
-                        1L,
+                        "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                         2,
                         BigDecimal.valueOf(25.0)
                 )),

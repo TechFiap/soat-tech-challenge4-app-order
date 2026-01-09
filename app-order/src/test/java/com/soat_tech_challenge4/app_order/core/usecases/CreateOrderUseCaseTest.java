@@ -35,14 +35,14 @@ class CreateOrderUseCaseTest {
     @Test
     void shouldCreateOrderSuccessfully() {
         // Arrange
-        OrderItemDto itemDto = new OrderItemDto(1L, 1L, 5,BigDecimal.TEN);
+        OrderItemDto itemDto = new OrderItemDto(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 5,BigDecimal.TEN);
         OrderRequestDto request = new OrderRequestDto(List.of(itemDto));
 
-        Product product = new Product(1L, "Coca Cola 500ml", "Test Product", BigDecimal.TEN,
+        Product product = new Product("d0e950f4-8249-4ea6-95eb-7637e98000c9", "Coca Cola 500ml", "Test Product", BigDecimal.TEN,
                 Category.BEBIDA, true);
-        when(productGateway.findById(1L)).thenReturn(product);
+        when(productGateway.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9")).thenReturn(product);
 
-        Order savedOrder = new Order(List.of(new OrderItem(1L, 5,  BigDecimal.TEN)));
+        Order savedOrder = new Order(List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 5,  BigDecimal.TEN)));
         when(orderGateway.save(any(Order.class))).thenReturn(savedOrder);
 
         // Act
@@ -51,11 +51,11 @@ class CreateOrderUseCaseTest {
         // Assert
         assertNotNull(result);
         assertEquals(1, result.getItems().size());
-        assertEquals(1L, result.getItems().get(0).getProductId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", result.getItems().get(0).getProductId());
         assertEquals(5, result.getItems().get(0).getQuantity());
         assertEquals(BigDecimal.valueOf(10), result.getItems().get(0).getPrice());
 
-        verify(productGateway, times(1)).findById(1L);
+        verify(productGateway, times(1)).findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
 
         ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
         verify(orderGateway).save(captor.capture());
@@ -67,10 +67,10 @@ class CreateOrderUseCaseTest {
     @Test
     void shouldThrowExceptionWhenProductNotFound() {
         // Arrange
-        OrderItemDto itemDto = new OrderItemDto(1L, 99L, 5, BigDecimal.TEN);
+        OrderItemDto itemDto = new OrderItemDto(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 5, BigDecimal.TEN);
         OrderRequestDto request = new OrderRequestDto(List.of(itemDto));
 
-        when(productGateway.findById(99L)).thenReturn(null);
+        when(productGateway.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9")).thenReturn(null);
 
         // Act + Assert
         ErrorException ex = assertThrows(
@@ -78,7 +78,7 @@ class CreateOrderUseCaseTest {
                 () -> useCase.execute(request)
         );
 
-        assertEquals("Product with id 99 not found in database", ex.getMessage());
+        assertEquals("Product with id d0e950f4-8249-4ea6-95eb-7637e98000c9 not found in database", ex.getMessage());
         verify(orderGateway, never()).save(any());
     }
 }

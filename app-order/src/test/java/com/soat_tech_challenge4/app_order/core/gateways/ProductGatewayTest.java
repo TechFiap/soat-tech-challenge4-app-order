@@ -27,7 +27,7 @@ class ProductGatewayTest {
     void findById_shouldReturnProduct_whenProductExists() {
         // Arrange
         ProductDto productDto = new ProductDto(
-                10L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 "Burger",
                 "Cheeseburger",
                 BigDecimal.valueOf(25),
@@ -35,33 +35,33 @@ class ProductGatewayTest {
                 true
         );
 
-        when(dataSource.findById(10L)).thenReturn(productDto);
+        when(dataSource.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9")).thenReturn(productDto);
 
         // Act
-        Product result = productGateway.findById(10L);
+        Product result = productGateway.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
 
         // Assert
         assertNotNull(result);
-        assertEquals(10L, result.getId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", result.getId());
         assertEquals("Burger", result.getName());
         assertEquals("Cheeseburger", result.getDescription());
         assertEquals(BigDecimal.valueOf(25), result.getPrice());
         assertEquals(Category.LANCHE, result.getCategory());
         assertTrue(result.getAvaliable());
 
-        verify(dataSource, times(1)).findById(10L);
+        verify(dataSource, times(1)).findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
     }
 
     @Test
     void findById_shouldReturnNull_whenProductDoesNotExist() {
         // Arrange
-        when(dataSource.findById(99L)).thenReturn(null);
+        when(dataSource.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9")).thenReturn(null);
 
         // Act
-        Product result = productGateway.findById(99L);
+        Product result = productGateway.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
 
         // Assert
         assertNull(result);
-        verify(dataSource, times(1)).findById(99L);
+        verify(dataSource, times(1)).findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
     }
 }

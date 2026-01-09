@@ -14,7 +14,7 @@ public class ProductGateway implements IProductGateway {
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(String id) {
         ProductDto productDto = dataSource.findById(id);
         if (productDto == null) return null;
 

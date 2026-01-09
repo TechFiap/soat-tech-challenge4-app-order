@@ -12,11 +12,11 @@ import java.math.BigDecimal;
 public class OrderItem {
 
     private Long id;
-    private Long productId;
+    private String productId;
     private Integer quantity;
     private BigDecimal price;
 
-    public OrderItem(Long productId, Integer quantity, BigDecimal price) {
+    public OrderItem(String productId, Integer quantity, BigDecimal price) {
         if (productId == null) {
             throw new IllegalArgumentException("productId cannot be null or empty");
         }
