@@ -8,11 +8,9 @@ import com.soat_tech_challenge4.app_order.api.rest.dto.response.ExternalProductR
 import com.soat_tech_challenge4.app_order.core.dtos.OrderDto;
 import com.soat_tech_challenge4.app_order.core.dtos.OrderItemDto;
 import com.soat_tech_challenge4.app_order.core.dtos.ProductDto;
-import com.soat_tech_challenge4.app_order.core.entities.Category;
 import com.soat_tech_challenge4.app_order.core.interfaces.DataSource;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +36,7 @@ public class DataRepository implements DataSource {
         if (orderEntity.isEmpty()) return null;
 
         List<OrderItemDto> orderItemDtoList = orderEntity.get().getItems().stream()
-                .map((orderItem) -> new OrderItemDto(
+                .map(orderItem -> new OrderItemDto(
                         orderItem.getId(),
                         orderItem.getProductId(),
                         orderItem.getQuantity(),
@@ -57,9 +55,8 @@ public class DataRepository implements DataSource {
     @Override
     public List<OrderDto> getAllOrders() {
         List<OrderEntity> listOrderEntity = orderJpaRepository.findAll();
-        if (listOrderEntity == null) return null;
 
-        List<OrderDto> listOrderDto = listOrderEntity.stream()
+        return listOrderEntity.stream()
                 .map(orderEntity -> {
                     List<OrderItemDto> itemDtos = orderEntity.getItems().stream()
                             .map(orderItem -> new OrderItemDto(
@@ -79,8 +76,6 @@ public class DataRepository implements DataSource {
                     );
                 })
                 .toList();
-
-        return listOrderDto;
     }
 
     @Override
@@ -122,14 +117,12 @@ public class DataRepository implements DataSource {
 
         if (externalProductResponse == null) return null;
 
-        ProductDto productDto = new ProductDto(
+        return new ProductDto(
                 externalProductResponse.id(),
                 externalProductResponse.name(),
                 externalProductResponse.description(),
                 externalProductResponse.price(),
                 externalProductResponse.category(),
                 externalProductResponse.avaliable());
-
-        return productDto;
     }
 }

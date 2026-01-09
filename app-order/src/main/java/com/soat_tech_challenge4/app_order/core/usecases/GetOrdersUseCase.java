@@ -14,10 +14,6 @@ public class GetOrdersUseCase {
     }
 
     public List<Order> execute() {
-        List<Order> result = orderGateway.getAllOrders();
-
-        if (result == null) return null;
-
-        return result;
-    };
+        return orderGateway.getAllOrders();
+    }
 }
