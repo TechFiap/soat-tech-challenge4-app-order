@@ -13,5 +13,5 @@ public interface DataSource {
 
     OrderDto saveOrder(OrderDto orderDto);
 
-    ProductDto findById(Long id);
+    ProductDto findById(String id);
 }

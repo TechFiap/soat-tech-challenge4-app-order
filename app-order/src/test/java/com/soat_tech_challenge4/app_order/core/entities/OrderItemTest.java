@@ -12,13 +12,13 @@ class OrderItemTest {
     void allArgsConstructor_shouldAssignAllFieldsCorrectly() {
         OrderItem item = new OrderItem(
                 1L,
-                10L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 2,
                 BigDecimal.valueOf(5)
         );
 
         assertEquals(1L, item.getId());
-        assertEquals(10L, item.getProductId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", item.getProductId());
         assertEquals(2, item.getQuantity());
         assertEquals(BigDecimal.valueOf(5), item.getPrice());
     }
@@ -36,12 +36,12 @@ class OrderItemTest {
     @Test
     void constructorWithValidation_shouldCreateOrderItemWhenValid() {
         OrderItem item = new OrderItem(
-                10L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 3,
                 BigDecimal.valueOf(7.5)
         );
 
-        assertEquals(10L, item.getProductId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", item.getProductId());
         assertEquals(3, item.getQuantity());
         assertEquals(BigDecimal.valueOf(7.5), item.getPrice());
     }
@@ -60,12 +60,12 @@ class OrderItemTest {
     void constructorWithValidation_shouldThrowException_whenQuantityIsZeroOrNegative() {
         IllegalArgumentException exceptionZero = assertThrows(
                 IllegalArgumentException.class,
-                () -> new OrderItem(1L, 0, BigDecimal.TEN)
+                () -> new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 0, BigDecimal.TEN)
         );
 
         IllegalArgumentException exceptionNegative = assertThrows(
                 IllegalArgumentException.class,
-                () -> new OrderItem(1L, -1, BigDecimal.TEN)
+                () -> new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", -1, BigDecimal.TEN)
         );
 
         assertEquals("quantity must be greater than zero", exceptionZero.getMessage());
@@ -76,17 +76,17 @@ class OrderItemTest {
     void constructorWithValidation_shouldThrowException_whenPriceIsNullOrZeroOrNegative() {
         IllegalArgumentException exceptionNull = assertThrows(
                 IllegalArgumentException.class,
-                () -> new OrderItem(1L, 1, null)
+                () -> new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, null)
         );
 
         IllegalArgumentException exceptionZero = assertThrows(
                 IllegalArgumentException.class,
-                () -> new OrderItem(1L, 1, BigDecimal.ZERO)
+                () -> new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.ZERO)
         );
 
         IllegalArgumentException exceptionNegative = assertThrows(
                 IllegalArgumentException.class,
-                () -> new OrderItem(1L, 1, BigDecimal.valueOf(-1))
+                () -> new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.valueOf(-1))
         );
 
         assertEquals("price must be greater than zero", exceptionNull.getMessage());
@@ -97,7 +97,7 @@ class OrderItemTest {
     @Test
     void getSubtotal_shouldReturnPriceTimesQuantity() {
         OrderItem item = new OrderItem(
-                1L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 4,
                 BigDecimal.valueOf(2.5)
         );

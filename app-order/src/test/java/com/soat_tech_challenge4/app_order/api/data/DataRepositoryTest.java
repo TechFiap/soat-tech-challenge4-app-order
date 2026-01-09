@@ -49,7 +49,7 @@ class DataRepositoryTest {
 
         OrderItemEntity item = new OrderItemEntity();
         item.setId(10L);
-        item.setProductId(5L);
+        item.setProductId("d0e950f4-8249-4ea6-95eb-7637e98000c9");
         item.setQuantity(2);
         item.setPrice(BigDecimal.valueOf(20));
         entity.setItems(List.of(item));
@@ -61,7 +61,7 @@ class DataRepositoryTest {
         assertNotNull(result);
         assertEquals(1L, result.id());
         assertEquals(1, result.listOrderItemDto().size());
-        assertEquals(5L, result.listOrderItemDto().get(0).productId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", result.listOrderItemDto().get(0).productId());
     }
 
     @Test
@@ -85,7 +85,7 @@ class DataRepositoryTest {
 
         OrderItemEntity item = new OrderItemEntity();
         item.setId(10L);
-        item.setProductId(5L);
+        item.setProductId("d0e950f4-8249-4ea6-95eb-7637e98000c9");
         item.setQuantity(2);
         item.setPrice(BigDecimal.valueOf(20));
         entity.setItems(List.of(item));
@@ -104,7 +104,7 @@ class DataRepositoryTest {
     // -------------------------------------------------------------
     @Test
     void testSaveOrder_SavesCorrectly() {
-        OrderItemDto itemDto = new OrderItemDto(10L, 5L, 2, BigDecimal.valueOf(20));
+        OrderItemDto itemDto = new OrderItemDto(10L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.valueOf(20));
         OrderDto dto = new OrderDto(
                 1L,
                 LocalDateTime.now(),
@@ -135,7 +135,7 @@ class DataRepositoryTest {
 
         OrderEntity captured = captor.getValue();
         assertEquals(1, captured.getItems().size());
-        assertEquals(5L, captured.getItems().get(0).getProductId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", captured.getItems().get(0).getProductId());
     }
 
     // -------------------------------------------------------------
@@ -144,7 +144,7 @@ class DataRepositoryTest {
     @Test
     void testFindById_ReturnsProductDto() {
         ExternalProductResponse response = new ExternalProductResponse(
-                1L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 "Product",
                 "Desc",
                 BigDecimal.TEN,
@@ -152,12 +152,12 @@ class DataRepositoryTest {
                 true
         );
 
-        when(productApiClient.getByDocument("1")).thenReturn(response);
+        when(productApiClient.getByDocument("d0e950f4-8249-4ea6-95eb-7637e98000c9")).thenReturn(response);
 
-        ProductDto result = dataRepository.findById(1L);
+        ProductDto result = dataRepository.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9");
 
         assertNotNull(result);
-        assertEquals(1L, result.id());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", result.id());
         assertEquals("Product", result.name());
     }
 
@@ -165,6 +165,6 @@ class DataRepositoryTest {
     void testFindById_ReturnsNullWhenApiReturnsNull() {
         when(productApiClient.getByDocument("1")).thenReturn(null);
 
-        assertNull(dataRepository.findById(1L));
+        assertNull(dataRepository.findById("d0e950f4-8249-4ea6-95eb-7637e98000c9"));
     }
 }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public record OrderItemDto(
         Long id,
-        Long productId,
+        String productId,
         Integer quantity,
         BigDecimal price) {
 }

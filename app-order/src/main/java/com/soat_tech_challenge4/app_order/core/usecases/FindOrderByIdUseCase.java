@@ -1,5 +1,6 @@
 package com.soat_tech_challenge4.app_order.core.usecases;
 
+import com.soat_tech_challenge4.app_order.application.exceptions.ErrorException;
 import com.soat_tech_challenge4.app_order.core.entities.Order;
 import com.soat_tech_challenge4.app_order.core.gateways.OrderGateway;
 
@@ -15,6 +16,13 @@ public class FindOrderByIdUseCase {
         if (orderId == null) {
             throw new IllegalArgumentException("Order ID cannot be null");
         }
-        return orderGateway.findById(orderId);
+
+        Order order = orderGateway.findById(orderId);
+
+        if (order == null) {
+            throw new ErrorException("Order not found");
+        }
+
+        return order;
     }
 }

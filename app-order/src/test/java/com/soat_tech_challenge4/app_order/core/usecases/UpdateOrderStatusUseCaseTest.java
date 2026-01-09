@@ -30,7 +30,7 @@ class UpdateOrderStatusUseCaseTest {
     void execute_shouldUpdateOrderStatusAndSave_whenOrderExists() {
         // Arrange
         Order order = new Order(10L, LocalDateTime.now(), OrderStatusEnum.CREATED,
-                    List.of(new OrderItem(1L, 1, BigDecimal.valueOf(15.0))),
+                    List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.valueOf(15.0))),
                     BigDecimal.valueOf(15.0), 1L);
 
         when(orderGateway.findById(10L)).thenReturn(order);

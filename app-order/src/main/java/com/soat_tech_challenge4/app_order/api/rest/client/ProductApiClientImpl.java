@@ -21,7 +21,7 @@ public class ProductApiClientImpl {
 
     public ExternalProductResponse getByDocument(String document) {
         return webClient.get()
-                .uri("/products/{document}", document)
+                .uri("/products/id/{document}", document)
                 .retrieve()
                 .onStatus(
                         HttpStatusCode::is4xxClientError,
