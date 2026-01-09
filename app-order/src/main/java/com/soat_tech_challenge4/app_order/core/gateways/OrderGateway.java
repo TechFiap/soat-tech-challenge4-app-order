@@ -21,7 +21,7 @@ public class OrderGateway implements IOrderGateway {
     public List<Order> getAllOrders() {
         List<OrderDto> result = dataSource.getAllOrders();
 
-        List<Order> listOrders = result.stream()
+        return result.stream()
                 .map(orderDto -> {
                     List<OrderItem> items = orderDto.listOrderItemDto().stream()
                             .map(orderItemDto -> new OrderItem(
@@ -42,8 +42,6 @@ public class OrderGateway implements IOrderGateway {
                     );
                 })
                 .toList();
-
-        return listOrders;
     }
 
     @Override
