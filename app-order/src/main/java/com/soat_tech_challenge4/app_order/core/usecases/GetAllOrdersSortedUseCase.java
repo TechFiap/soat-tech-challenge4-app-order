@@ -18,9 +18,6 @@ public class GetAllOrdersSortedUseCase {
 
     public List<Order> execute() {
         List<Order> result = orderGateway.getAllOrders();
-
-        if (result == null) return null;
-
         return result.stream()
                 .filter(order -> order.getOrderStatus() != null && !order.getOrderStatus().name()
                         .equalsIgnoreCase(FINALIZADO))

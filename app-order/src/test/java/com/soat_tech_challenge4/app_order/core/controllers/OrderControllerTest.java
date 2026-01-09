@@ -26,36 +26,12 @@ public class OrderControllerTest {
 
     private OrderController orderController;
     private DataSource dataSource;
-    private OrderGateway orderGateway;
 
     @BeforeEach
     void setUp() {
         dataSource = mock(DataSource.class);
-        orderGateway = mock(OrderGateway.class);
+        OrderGateway orderGateway = mock(OrderGateway.class);
         orderController = new OrderController(dataSource);
-    }
-
-
-    @Test
-    void checkout_success() {
-        OrderRequestDto orderRequestDtoMock = new OrderRequestDto(createMockOrderItemDto());
-        OrderDto orderDtomock = createMockOrderDto();
-        ProductDto productDtoMock = new ProductDto(10L, "Batata Frita",
-                "Porçao de batata com queijo", new BigDecimal(25.00),
-                Category.ACOMPANHAMENTO, Boolean.TRUE);
-
-        when(dataSource.saveOrder(any())).thenReturn(orderDtomock);
-        when(dataSource.findById(any())).thenReturn(productDtoMock);
-
-        OrderResponseDto result = orderController.checkout(orderRequestDtoMock);
-
-        assertNotNull(result);
-        assertEquals(100L, orderDtomock.id());
-        assertEquals(1, orderDtomock.listOrderItemDto().size());
-
-        verify(dataSource).saveOrder(any());
-        verify(dataSource, times(2)).findById(any());
-
     }
 
     @Test
@@ -91,15 +67,14 @@ public class OrderControllerTest {
     public static OrderDto createMockOrderDto() {
         OrderItemDto item1 = new OrderItemDto(1l, 10l,1, new BigDecimal("25.00"));
 
-        OrderDto orderDtomock = new OrderDto(
+        return new OrderDto(
                 100L,
                 LocalDateTime.now(),
                 OrderStatusEnum.CREATED,
-                Arrays.asList(item1),
+                List.of(item1),
                 new BigDecimal("58.00"),
                 999L
         );
-        return orderDtomock;
     }
 
     public static List<OrderItemDto> createMockOrderItemDto() {

@@ -17,10 +17,6 @@ public class CheckoutUseCase {
 
     public Order execute(OrderRequestDto orderRequestDto) {
         CreateOrderUseCase createOrderUseCase = new CreateOrderUseCase(orderGateway, productGateway);
-
-        //Chama o useCase para criar a order
-        Order order = createOrderUseCase.execute(orderRequestDto);
-
-        return order;
+        return createOrderUseCase.execute(orderRequestDto);
     }
 }
