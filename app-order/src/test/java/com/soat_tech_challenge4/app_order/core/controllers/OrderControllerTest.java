@@ -89,7 +89,7 @@ public class OrderControllerTest {
     }
 
     public static OrderDto createMockOrderDto() {
-        OrderItemDto item1 = new OrderItemDto(1l, 10l,1, new BigDecimal("25.00"));
+        OrderItemDto item1 = new OrderItemDto(1l, "2ad74ecd-ba58-4d60-999f-010e13e32014",1, new BigDecimal("25.00"));
 
         OrderDto orderDtomock = new OrderDto(
                 100L,
@@ -103,8 +103,8 @@ public class OrderControllerTest {
     }
 
     public static List<OrderItemDto> createMockOrderItemDto() {
-        OrderItemDto item1 = new OrderItemDto(1l, 10l,1, new BigDecimal("25.00"));
-        OrderItemDto item2 = new OrderItemDto(2l, 20l,1, new BigDecimal("8.00"));
+        OrderItemDto item1 = new OrderItemDto(1l, "2ad74ecd-ba58-4d60-999f-010e13e32014",1, new BigDecimal("25.00"));
+        OrderItemDto item2 = new OrderItemDto(2l, "d0e950f4-8249-4ea6-95eb-7637e98000c9",1, new BigDecimal("8.00"));
 
         return  Arrays.asList(item1, item2);
     }

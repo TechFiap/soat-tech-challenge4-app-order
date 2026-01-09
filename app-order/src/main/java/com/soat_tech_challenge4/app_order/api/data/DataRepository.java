@@ -117,8 +117,8 @@ public class DataRepository implements DataSource {
 
 
     @Override
-    public ProductDto findById(Long id) {
-        ExternalProductResponse externalProductResponse = productApiClient.getByDocument(id.toString());
+    public ProductDto findById(String productId) {
+        ExternalProductResponse externalProductResponse = productApiClient.getByDocument(productId);
 
         if (externalProductResponse == null) return null;
 
