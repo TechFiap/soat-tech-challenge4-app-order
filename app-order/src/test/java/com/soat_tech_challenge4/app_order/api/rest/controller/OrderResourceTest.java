@@ -29,7 +29,7 @@ class OrderResourceTest {
     private OrderItemDto createItem() {
         return new OrderItemDto(
                 1L,               // productId
-                10L,              // categoryId
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",              // categoryId
                 1,                // quantity
                 BigDecimal.TEN    // unitPrice
         );
@@ -51,7 +51,7 @@ class OrderResourceTest {
                 1L,
                 LocalDateTime.now(),
                 OrderStatusEnum.CREATED,
-                List.of(new OrderItemResponseDto(1L, 1, BigDecimal.TEN)),
+                List.of(new OrderItemResponseDto("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)),
                 BigDecimal.TEN,
                 99L
         );

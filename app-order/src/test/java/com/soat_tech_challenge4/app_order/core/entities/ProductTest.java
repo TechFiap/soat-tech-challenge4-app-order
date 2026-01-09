@@ -11,7 +11,7 @@ class ProductTest {
     @Test
     void testConstructorWithId_Success() {
         Product product = new Product(
-                1L,
+                "d0e950f4-8249-4ea6-95eb-7637e98000c9",
                 "Coca-Cola",
                 "Refrigerante",
                 BigDecimal.valueOf(10),
@@ -19,7 +19,7 @@ class ProductTest {
                 true
         );
 
-        assertEquals(1L, product.getId());
+        assertEquals("d0e950f4-8249-4ea6-95eb-7637e98000c9", product.getId());
         assertEquals("Coca-Cola", product.getName());
         assertEquals("Refrigerante", product.getDescription());
         assertEquals(BigDecimal.valueOf(10), product.getPrice());

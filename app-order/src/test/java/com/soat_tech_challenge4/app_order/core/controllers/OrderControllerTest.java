@@ -37,7 +37,7 @@ class OrderControllerTest {
     @Test
     void getAllOrders_shouldReturnOrderDtoList() {
         List<Order> orders =
-                List.of(new Order(List.of(new OrderItem(1L, 2, BigDecimal.TEN))));
+                List.of(new Order(List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.TEN))));
 
         try (MockedConstruction<GetOrdersUseCase> mocked =
                      mockConstruction(GetOrdersUseCase.class,
@@ -53,11 +53,11 @@ class OrderControllerTest {
 
     @Test
     void checkout_shouldReturnOrderResponseDto() {
-        OrderItemDto itemDto = new OrderItemDto(1L, 2L, 5, BigDecimal.TEN);
+        OrderItemDto itemDto = new OrderItemDto(1L, "d0e950f4-8249-4ea6-95eb-7637e98000c9", 5, BigDecimal.TEN);
         OrderRequestDto request = new OrderRequestDto(List.of(itemDto));
 
         Order order =
-                new Order(List.of(new OrderItem(2L, 5, BigDecimal.TEN)));
+                new Order(List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 5, BigDecimal.TEN)));
 
         try (MockedConstruction<CheckoutUseCase> mocked =
                      mockConstruction(CheckoutUseCase.class,
@@ -74,7 +74,7 @@ class OrderControllerTest {
     @Test
     void findById_shouldReturnOrderDto() {
         Order order =
-                new Order(List.of(new OrderItem(1L, 1, BigDecimal.TEN)));
+                new Order(List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 1, BigDecimal.TEN)));
 
         try (MockedConstruction<FindOrderByIdUseCase> mocked =
                      mockConstruction(FindOrderByIdUseCase.class,
@@ -91,7 +91,7 @@ class OrderControllerTest {
     @Test
     void getAllOrdersSorted_shouldReturnSortedOrderDtoList() {
         List<Order> orders =
-                List.of(new Order(List.of(new OrderItem(1L, 2, BigDecimal.TEN))));
+                List.of(new Order(List.of(new OrderItem("d0e950f4-8249-4ea6-95eb-7637e98000c9", 2, BigDecimal.TEN))));
 
         try (MockedConstruction<GetAllOrdersSortedUseCase> mocked =
                      mockConstruction(GetAllOrdersSortedUseCase.class,
@@ -108,7 +108,7 @@ class OrderControllerTest {
     void checkout_success() {
         OrderRequestDto orderRequestDtoMock = new OrderRequestDto(createMockOrderItemDto());
         OrderDto orderDtomock = createMockOrderDto();
-        ProductDto productDtoMock = new ProductDto(10L, "Batata Frita",
+        ProductDto productDtoMock = new ProductDto("d0e950f4-8249-4ea6-95eb-7637e98000c9", "Batata Frita",
                 "Porçao de batata com queijo", new BigDecimal(25.00),
                 Category.ACOMPANHAMENTO, Boolean.TRUE);
 
