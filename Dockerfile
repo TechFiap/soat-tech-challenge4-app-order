@@ -9,10 +9,17 @@ COPY app-order/src ./src
 RUN mvn clean package -DskipTests
 
 
+# Stage 2: Download New Relic Agent (Dedicated Stage)
+FROM alpine:latest AS newrelic-agent
+RUN apk add --no-cache curl unzip
+WORKDIR /newrelic
+RUN curl -L -O https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip && unzip newrelic-java.zip && rm newrelic-java.zip
 
-# Stage 2: Create the runtime image
+# Stage 3: Create the runtime image 
+
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
+COPY --from=newrelic-agent /newrelic/newrelic/newrelic.jar /app/newrelic/newrelic.jar
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-javaagent:/app/newrelic/newrelic.jar", "-jar", "app.jar"]

@@ -32,6 +32,14 @@ spec:
             - configMapRef:
                 name: order-configmap
           env:
+            - name: NEW_RELIC_LICENSE_KEY
+              value: "3b37ab2f3df2e57df99ba57f8e851b7dFFFFNRAL"
+            - name: NEW_RELIC_APP_NAME
+              value: "order-app-service"
+            - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+              value: "true"
+            - name: NEW_RELIC_LOGS_IN_CONTEXT_ENABLED
+              value: "true"
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -44,18 +52,18 @@ spec:
                   key: DATASOURCE_PASSWORD
           livenessProbe:
             httpGet:
-              path: /swagger-ui/index.html
+              path: /orders
               port: 8080
             initialDelaySeconds: 60
-            timeoutSeconds: 2
+            timeoutSeconds: 5
             periodSeconds: 60
 
           readinessProbe:
             httpGet:
-              path: /swagger-ui/index.html
+              path: /orders
               port: 8080
             initialDelaySeconds: 60
-            timeoutSeconds: 2
+            timeoutSeconds: 5
             periodSeconds: 60
 ---
 
