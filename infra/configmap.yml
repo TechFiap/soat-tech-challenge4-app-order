@@ -4,7 +4,7 @@ metadata:
   name: order-configmap
   namespace: order-app
 data:
-  SPRING_DATASOURCE_URL: jdbc:postgresql://soat-postgres-db.cszqygoyua1z.us-east-1.rds.amazonaws.com:5432/fastdb
+  SPRING_DATASOURCE_URL: jdbc:postgresql://soat-postgres-db.cszqygoyua1z.us-east-1.rds.amazonaws.com:5432/orders-db
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_JPA_SHOW_SQL: "true"
   SERVER_PORT: "8080"
