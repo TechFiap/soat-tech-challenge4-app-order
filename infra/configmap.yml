@@ -8,5 +8,6 @@ data:
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_JPA_SHOW_SQL: "true"
   SERVER_PORT: "8080"
+  EXTERNAL_PRODUCTS_API_URL: "http://products-service.products-app.svc.cluster.local:8080"
 
 
